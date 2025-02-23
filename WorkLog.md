@@ -8,3 +8,4 @@
 -   1h 20m - prepare API/state CRUD
 -   5m - F2: Load todo items
 -   5m - F6: Delete a todo item
+-   5m - F5: Complete a todo item

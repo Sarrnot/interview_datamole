@@ -28,9 +28,13 @@ export const useTodosState = () => {
         });
     };
 
+    const toggleTodoDone = (todo: Todo) => {
+        editTodo({ ...todo, isDone: !todo.isDone });
+    };
+
     useEffect(() => {
         updateTodos();
     }, []);
 
-    return { todos, updateTodos, editTodo, addTodo, removeTodo };
+    return { todos, updateTodos, editTodo, addTodo, removeTodo, toggleTodoDone };
 };
