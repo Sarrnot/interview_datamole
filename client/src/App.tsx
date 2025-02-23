@@ -8,7 +8,7 @@ import { useTodosState } from "./stores/todosState";
 import { ListItem } from "./components/ListItem";
 
 export const App = () => {
-    const { todos } = useTodosState();
+    const { todos, removeTodo } = useTodosState();
 
     return (
         <ThemeProvider>
@@ -21,7 +21,7 @@ export const App = () => {
                                 key={todo.id}
                                 label={todo.label}
                                 isDone={todo.isDone}
-                                onItemDelete={() => {}}
+                                onItemDelete={() => removeTodo(todo)}
                                 onItemDoneToggle={() => {}}
                                 onItemLabelEdit={() => {}}
                             />
