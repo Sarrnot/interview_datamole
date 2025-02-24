@@ -6,9 +6,25 @@ import { Footer } from "./components/Footer";
 import { ThemeProvider } from "./components/providers/ThemeProvider";
 import { useTodosState } from "./stores/todosState";
 import { ListItem } from "./components/ListItem";
+import { useMemo } from "react";
 
 export const App = () => {
     const { todos, removeTodo, toggleTodoDone } = useTodosState();
+
+    /** Sorted todos: 1) not "done" first, 2) createdAt descending */
+    const sortedTodos = useMemo(
+        () =>
+            todos.sort((todo1, todo2) => {
+                if (todo1.isDone !== todo2.isDone) {
+                    return todo1.isDone ? 1 : -1;
+                }
+
+                if (todo1.createdAt > todo2.createdAt) return -1;
+                if (todo1.createdAt < todo2.createdAt) return 1;
+                return 0;
+            }),
+        [todos]
+    );
 
     return (
         <ThemeProvider>
@@ -16,7 +32,7 @@ export const App = () => {
                 <Layout>
                     <Header onItemAdd={() => console.warn("unimplemented")}>To Do app</Header>
                     <List>
-                        {todos.map((todo) => (
+                        {sortedTodos.map((todo) => (
                             <ListItem
                                 key={todo.id}
                                 label={todo.label}
