@@ -18,7 +18,7 @@ export const useTodosState = () => {
 
     const addTodo = (todo: PartialTodo) => {
         postTodo(todo).then((newTodo) => {
-            setTodos((prev) => ({ ...prev, newTodo }));
+            setTodos((prev) => [...prev, newTodo]);
         });
     };
 

@@ -28,7 +28,7 @@ export const postTodo = async (todo: PartialTodo) => {
         },
         body: JSON.stringify(todo),
     });
-    if (response.status !== 200) throw new Error("Error handling placeholder.");
+    if (response.status !== 201) throw new Error("Error handling placeholder.");
     const newTodo: Todo = await response.json();
     return newTodo;
 };

@@ -1,6 +1,7 @@
 import { PlusIcon } from "@radix-ui/react-icons";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { Form } from "./form";
 
 const StyledDiv = styled.header`
     display: flex;
@@ -25,15 +26,28 @@ type HeaderProps = {
     onItemAdd: (label: string) => void;
 };
 
+type Mode = "menu" | "addTodo";
+
 export const Header = (props: HeaderProps) => {
-    const { children } = props;
+    const { children, onItemAdd } = props;
+
+    const [mode, setMode] = useState<Mode>("menu");
+
+    const handleSubmit = (value: string) => {
+        onItemAdd(value);
+        setMode("menu");
+    };
 
     return (
         <StyledDiv>
             <h1>{children}</h1>
-            <button>
-                <PlusIcon />
-            </button>
+            {mode === "menu" ? (
+                <button onClick={() => setMode("addTodo")}>
+                    <PlusIcon />
+                </button>
+            ) : (
+                <Form initialValue="" onCancel={() => setMode("menu")} onSubmit={handleSubmit}></Form>
+            )}
         </StyledDiv>
     );
 };

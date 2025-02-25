@@ -9,7 +9,7 @@ import { ListItem } from "./components/ListItem";
 import { useMemo } from "react";
 
 export const App = () => {
-    const { todos, removeTodo, toggleTodoDone } = useTodosState();
+    const { todos, removeTodo, toggleTodoDone, addTodo } = useTodosState();
 
     /** Sorted todos: 1) not "done" first, 2) createdAt descending */
     const sortedTodos = useMemo(
@@ -28,11 +28,18 @@ export const App = () => {
 
     const doneCount = todos.reduce((count, todo) => (todo.isDone ? count + 1 : count), 0);
 
+    const handleItemAdd = (label: string) => {
+        addTodo({
+            label,
+            isDone: false,
+        });
+    };
+
     return (
         <ThemeProvider>
             <Container>
                 <Layout>
-                    <Header onItemAdd={() => console.warn("unimplemented")}>To Do app</Header>
+                    <Header onItemAdd={handleItemAdd}>To Do app</Header>
                     <List>
                         {sortedTodos.map((todo) => (
                             <ListItem
