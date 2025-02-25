@@ -26,6 +26,8 @@ export const App = () => {
         [todos]
     );
 
+    const doneCount = todos.reduce((count, todo) => (todo.isDone ? count + 1 : count), 0);
+
     return (
         <ThemeProvider>
             <Container>
@@ -43,7 +45,7 @@ export const App = () => {
                             />
                         ))}
                     </List>
-                    <Footer />
+                    <Footer doneItems={doneCount} todoItems={todos.length - doneCount} />
                 </Layout>
             </Container>
         </ThemeProvider>

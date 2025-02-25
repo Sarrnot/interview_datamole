@@ -11,3 +11,4 @@
 -   5m - F5: Complete a todo item
 -   5m - F1: Default values in Footer
 -   20m - F7: Sort the todo items
+-   10m - F8: Count the todo items
