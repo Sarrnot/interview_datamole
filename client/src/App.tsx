@@ -7,9 +7,10 @@ import { ThemeProvider } from "./components/providers/ThemeProvider";
 import { useTodosState } from "./stores/todosState";
 import { ListItem } from "./components/ListItem";
 import { useMemo } from "react";
+import { Todo } from "./api/todo";
 
 export const App = () => {
-    const { todos, removeTodo, toggleTodoDone, addTodo } = useTodosState();
+    const { todos, removeTodo, toggleTodoDone, addTodo, editTodo } = useTodosState();
 
     /** Sorted todos: 1) not "done" first, 2) createdAt descending */
     const sortedTodos = useMemo(
@@ -35,6 +36,10 @@ export const App = () => {
         });
     };
 
+    const handleItemLabelEdit = (newLabel: string, todo: Todo) => {
+        editTodo({ ...todo, label: newLabel });
+    };
+
     return (
         <ThemeProvider>
             <Container>
@@ -48,7 +53,7 @@ export const App = () => {
                                 isDone={todo.isDone}
                                 onItemDelete={() => removeTodo(todo)}
                                 onItemDoneToggle={() => toggleTodoDone(todo)}
-                                onItemLabelEdit={() => {}}
+                                onItemLabelEdit={(label) => handleItemLabelEdit(label, todo)}
                             />
                         ))}
                     </List>

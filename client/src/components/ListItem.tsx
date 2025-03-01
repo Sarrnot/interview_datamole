@@ -1,8 +1,9 @@
 import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { Checkbox } from "./Checkbox";
+import { Form } from "./form";
 
 const StyledDiv = styled.div`
     display: flex;
@@ -21,8 +22,17 @@ export type LiteeItemProp = {
     onItemDelete: () => void;
 };
 
+type Mode = "preview" | "edit";
+
 export const ListItem = (props: LiteeItemProp) => {
     const { label, isDone, onItemLabelEdit, onItemDoneToggle, onItemDelete } = props;
+
+    const [mode, setMode] = useState<Mode>("preview");
+
+    const handleEditSubmit = (value: string) => {
+        onItemLabelEdit(value);
+        setMode("preview");
+    };
 
     return (
         <StyledDiv>
@@ -31,9 +41,13 @@ export const ListItem = (props: LiteeItemProp) => {
             <button onClick={() => onItemDelete()}>
                 <TrashIcon />
             </button>
-            <button onClick={() => {}}>
-                <Pencil1Icon />
-            </button>
+            {mode === "preview" ? (
+                <button onClick={() => setMode("edit")}>
+                    <Pencil1Icon />
+                </button>
+            ) : (
+                <Form initialValue={label} onCancel={() => setMode("preview")} onSubmit={handleEditSubmit} />
+            )}
         </StyledDiv>
     );
 };

@@ -13,3 +13,4 @@
 -   20m - F7: Sort the todo items
 -   10m - F8: Count the todo items
 -   20m - F3: Add a todo item
+-   10m - F4: Edit a todo item's label
