@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { Checkbox } from "./Checkbox";
 import { Form } from "./form";
+import { Button } from "./Button";
 
 const StyledDiv = styled.div`
     display: flex;
@@ -38,13 +39,13 @@ export const ListItem = (props: LiteeItemProp) => {
         <StyledDiv>
             <Checkbox checked={isDone} onCheckedChange={onItemDoneToggle} />
             <Label>{label}</Label>
-            <button onClick={() => onItemDelete()}>
+            <Button onClick={() => onItemDelete()}>
                 <TrashIcon />
-            </button>
+            </Button>
             {mode === "preview" ? (
-                <button onClick={() => setMode("edit")}>
+                <Button onClick={() => setMode("edit")}>
                     <Pencil1Icon />
-                </button>
+                </Button>
             ) : (
                 <Form initialValue={label} onCancel={() => setMode("preview")} onSubmit={handleEditSubmit} />
             )}

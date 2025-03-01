@@ -2,23 +2,10 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Form } from "./form";
+import { Button } from "./Button";
 
 const StyledDiv = styled.header`
     display: flex;
-
-    button {
-        all: unset;
-
-        width: 25px;
-        height: 25px;
-
-        background-color: ${(props) => props.theme.colors.grass9};
-        border: 1px solid;
-        border-color: ${(props) => props.theme.colors.olive9};
-        border-radius: 50%;
-
-        color: #fff;
-    }
 `;
 
 type HeaderProps = {
@@ -42,9 +29,9 @@ export const Header = (props: HeaderProps) => {
         <StyledDiv>
             <h1>{children}</h1>
             {mode === "menu" ? (
-                <button onClick={() => setMode("addTodo")}>
+                <Button onClick={() => setMode("addTodo")}>
                     <PlusIcon />
-                </button>
+                </Button>
             ) : (
                 <Form initialValue="" onCancel={() => setMode("menu")} onSubmit={handleSubmit}></Form>
             )}
