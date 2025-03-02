@@ -4,7 +4,7 @@ import styled from "styled-components";
 const FooterStyled = styled.footer`
     display: flex;
 
-    margin-top: 15px;
+    margin-top: auto;
     padding-top: 15px;
 
     border-top: 1px solid;

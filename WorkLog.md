@@ -16,3 +16,5 @@
 -   10m - F4: Edit a todo item's label
 -   15m - F9: Button component
 -   30m - S1 seems problematic with json-server, skipping for now
+-   5m - B1 task needs clarification, skipping for now
+-   5m - B2: Footer alignment
