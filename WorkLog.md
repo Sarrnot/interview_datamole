@@ -23,3 +23,4 @@
 -   10m - UI3: ListItem actions visibility
 -   10m - SB1: Add a story/stories for the Layout component
 -   10m - SB2: Add stories showing available Button variants
+-   5m - SB3 "actions visibility change" being part of the component is showcased by default, skipping
