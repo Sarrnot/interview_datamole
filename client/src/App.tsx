@@ -37,7 +37,7 @@ export const App = () => {
     };
 
     const handleItemLabelEdit = (newLabel: string, todo: Todo) => {
-        editTodo({ ...todo, label: newLabel });
+        editTodo({ id: todo.id, label: newLabel });
     };
 
     return (

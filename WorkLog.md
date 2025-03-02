@@ -29,3 +29,4 @@
 -   10m - SB2: Add stories showing available Button variants
 -   5m - SB3 "actions visibility change" being part of the component is showcased by default, skipping
 -   1h - S1: Implement a custom endpoint
+-   5m - refactor label edit to use PATCH instead of PUT

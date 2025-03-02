@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteTodo, getTodos, PartialTodoPost, patchTodo, postTodo, putTodo, Todo } from "../api/todo";
+import { deleteTodo, getTodos, PartialTodoPatch, PartialTodoPost, patchTodo, postTodo, Todo } from "../api/todo";
 
 export const useTodosState = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
@@ -10,8 +10,8 @@ export const useTodosState = () => {
         });
     };
 
-    const editTodo = (todo: Todo) => {
-        putTodo(todo).then((updatedTodo) => {
+    const editTodo = (todo: PartialTodoPatch) => {
+        patchTodo(todo).then((updatedTodo) => {
             setTodos((prev) => prev.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo)));
         });
     };
@@ -29,9 +29,7 @@ export const useTodosState = () => {
     };
 
     const toggleTodoDone = (todo: Todo) => {
-        patchTodo({ id: todo.id, isDone: !todo.isDone }).then((updatedTodo) => {
-            setTodos((prev) => prev.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo)));
-        });
+        editTodo({ id: todo.id, isDone: !todo.isDone });
     };
 
     useEffect(() => {
