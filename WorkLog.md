@@ -15,3 +15,4 @@
 -   20m - F3: Add a todo item
 -   10m - F4: Edit a todo item's label
 -   15m - F9: Button component
+-   30m - S1 seems problematic with json-server, skipping for now
