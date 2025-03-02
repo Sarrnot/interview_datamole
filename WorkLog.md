@@ -22,3 +22,4 @@
 -   5m - UI2: ListItem actions alignment
 -   10m - UI3: ListItem actions visibility
 -   10m - SB1: Add a story/stories for the Layout component
+-   10m - SB2: Add stories showing available Button variants
