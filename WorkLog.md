@@ -20,3 +20,4 @@
 -   5m - B2: Footer alignment
 -   5m - UI1: Header "add" button alignment
 -   5m - UI2: ListItem actions alignment
+-   10m - UI3: ListItem actions visibility

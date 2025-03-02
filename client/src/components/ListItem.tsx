@@ -6,18 +6,23 @@ import { Checkbox } from "./Checkbox";
 import { Form } from "./form";
 import { Button } from "./Button";
 
+const ActionsDiv = styled.div<{ active: boolean }>`
+    display: flex;
+    margin-left: auto;
+    visibility: ${(p) => (p.active ? "visible" : "hidden")};
+`;
+
 const StyledDiv = styled.div`
     display: flex;
     align-items: center;
+
+    &:hover ${ActionsDiv} {
+        visibility: visible;
+    }
 `;
 
 const Label = styled.label`
     margin-left: 15px;
-`;
-
-const ActionsDiv = styled.div`
-    display: flex;
-    margin-left: auto;
 `;
 
 export type LiteeItemProp = {
@@ -44,7 +49,7 @@ export const ListItem = (props: LiteeItemProp) => {
         <StyledDiv>
             <Checkbox checked={isDone} onCheckedChange={onItemDoneToggle} />
             <Label>{label}</Label>
-            <ActionsDiv>
+            <ActionsDiv active={mode !== "preview"}>
                 <Button onClick={() => onItemDelete()}>
                     <TrashIcon />
                 </Button>
