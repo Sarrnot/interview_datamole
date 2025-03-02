@@ -21,3 +21,4 @@
 -   5m - UI1: Header "add" button alignment
 -   5m - UI2: ListItem actions alignment
 -   10m - UI3: ListItem actions visibility
+-   10m - SB1: Add a story/stories for the Layout component
