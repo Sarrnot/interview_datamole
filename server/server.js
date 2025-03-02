@@ -10,6 +10,13 @@ server.use((req, res, next) => {
     if (req.method === "POST") {
         req.body.createdAt = Date.now();
     }
+
+    if (["POST", "PUT", "PATCH"].includes(req.method)) {
+        if (req.body.isDone) {
+            req.body.endedAt ??= Date.now();
+        }
+    }
+
     next();
 });
 

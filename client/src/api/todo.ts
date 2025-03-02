@@ -1,4 +1,5 @@
 import { PickPartial } from "../types/PickPartial";
+import { PickRequired } from "../types/PickRequired";
 
 const API_URL = "http://localhost:3000"; // should be in .env
 
@@ -7,6 +8,7 @@ export type Todo = {
     label: string;
     isDone: boolean;
     createdAt: number;
+    endedAt?: number;
 };
 
 export const getTodos = async () => {
@@ -16,11 +18,11 @@ export const getTodos = async () => {
     return data;
 };
 
-export type PartialTodo = PickPartial<Todo, "id" | "createdAt">;
+export type PartialTodoPost = PickPartial<Todo, "id" | "createdAt" | "endedAt">;
 /**
  * @returns newly created Todo from the server
  */
-export const postTodo = async (todo: PartialTodo) => {
+export const postTodo = async (todo: PartialTodoPost) => {
     const response = await fetch(`${API_URL}/items/`, {
         method: "POST",
         headers: {
@@ -58,4 +60,21 @@ export const deleteTodo = async (todo: Todo) => {
         body: JSON.stringify(todo),
     });
     if (response.status !== 200) throw new Error("Error handling placeholder.");
+};
+
+export type PartialTodoPatch = PickRequired<Partial<Todo>, "id">;
+/**
+ * @returns patched Todo from the server
+ */
+export const patchTodo = async (todo: PartialTodoPatch) => {
+    const response = await fetch(`${API_URL}/items/${todo.id}/`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(todo),
+    });
+    if (response.status !== 200) throw new Error("Error handling placeholder.");
+    const patchedTodo: Todo = await response.json();
+    return patchedTodo;
 };

@@ -1,5 +1,9 @@
 # Work log
 
+## Notes
+
+-   S1: Task suggests creating a webhook-like endpoint (e.g. POST "/items/:id/markDone"). After searching through json-server's documentation, this doesn't seem to be possible with json-server (at least not in a clean way). Server being Express, creating an endpoint is easy, but there is no official way to access the underlying lowdb and to create a custom update query. I chose to adhere to json-server's REST API and implemented the functionality with a middleware (same way as `createdAt` in the original code).
+
 ## Time spent
 
 -   3h - VM, VLAN setup to run untrusted code
@@ -24,3 +28,4 @@
 -   10m - SB1: Add a story/stories for the Layout component
 -   10m - SB2: Add stories showing available Button variants
 -   5m - SB3 "actions visibility change" being part of the component is showcased by default, skipping
+-   1h - S1: Implement a custom endpoint
