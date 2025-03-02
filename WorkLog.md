@@ -20,6 +20,7 @@
 -   design system
 -   handle long texts (e.g. Checkbox gets malformed when Todo has a long label)
 -   endedAt lingers even after Todo set to isDone:false => up for a debate if wanted or if a sign of data integrity violation
+-   fix broken stories in Storybook
 
 ## Time spent
 
