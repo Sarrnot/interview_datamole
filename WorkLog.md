@@ -18,3 +18,4 @@
 -   30m - S1 seems problematic with json-server, skipping for now
 -   5m - B1 task needs clarification, skipping for now
 -   5m - B2: Footer alignment
+-   5m - UI1: Header "add" button alignment
