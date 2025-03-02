@@ -19,3 +19,4 @@
 -   5m - B1 task needs clarification, skipping for now
 -   5m - B2: Footer alignment
 -   5m - UI1: Header "add" button alignment
+-   5m - UI2: ListItem actions alignment

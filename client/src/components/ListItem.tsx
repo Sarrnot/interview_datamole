@@ -15,6 +15,11 @@ const Label = styled.label`
     margin-left: 15px;
 `;
 
+const ActionsDiv = styled.div`
+    display: flex;
+    margin-left: auto;
+`;
+
 export type LiteeItemProp = {
     label: string;
     isDone: boolean;
@@ -39,16 +44,18 @@ export const ListItem = (props: LiteeItemProp) => {
         <StyledDiv>
             <Checkbox checked={isDone} onCheckedChange={onItemDoneToggle} />
             <Label>{label}</Label>
-            <Button onClick={() => onItemDelete()}>
-                <TrashIcon />
-            </Button>
-            {mode === "preview" ? (
-                <Button onClick={() => setMode("edit")}>
-                    <Pencil1Icon />
+            <ActionsDiv>
+                <Button onClick={() => onItemDelete()}>
+                    <TrashIcon />
                 </Button>
-            ) : (
-                <Form initialValue={label} onCancel={() => setMode("preview")} onSubmit={handleEditSubmit} />
-            )}
+                {mode === "preview" ? (
+                    <Button onClick={() => setMode("edit")}>
+                        <Pencil1Icon />
+                    </Button>
+                ) : (
+                    <Form initialValue={label} onCancel={() => setMode("preview")} onSubmit={handleEditSubmit} />
+                )}
+            </ActionsDiv>
         </StyledDiv>
     );
 };
