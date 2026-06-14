@@ -11,3 +11,6 @@ Compared to the original task, the evaluation will focus mainly on the process o
 I chose to implement the drag-and-drop reordering.
 
 ## Log
+
+-   Generated context scaffolding for Claude (`CLAUDE.md`, `client/CLAUDE.md`, etc.). In other words, Claude needs to understand the project's structure without having to scrape it every single time. Split into a hierarchy with references to reduce context window baseline.
+-
