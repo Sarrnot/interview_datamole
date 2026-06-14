@@ -28,6 +28,8 @@ Verify changes (client only — server is plain JS with no tooling):
 -   Format: `pnpm --filter ./client format` (Prettier write)
 -   Tests: none — no test framework is set up.
 
+Lint, typecheck and format are also enforced automatically via hooks in `.claude/settings.json` (`.claude/hooks/*.sh`).
+
 ## Conventions
 
 -   Prettier (root `.prettierrc`): 4-space indent, 120 print width, es5 trailing commas.
