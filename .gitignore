@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 client/storybook-static
+
+# Claude Code — local (unversioned) settings and instructions
+.claude/settings.local.json
