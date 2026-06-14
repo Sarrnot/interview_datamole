@@ -13,4 +13,6 @@ I chose to implement the drag-and-drop reordering.
 ## Log
 
 -   Generated context scaffolding for Claude (`CLAUDE.md`, `client/CLAUDE.md`, etc.). In other words, Claude needs to understand the project's structure without having to scrape it every single time. Split into a hierarchy with references to reduce context window baseline.
--
+-   Set up environment for Claude, so that Claude can run lint/typecheck/format.
+-   Added guardrails for Claude in the form of hooks, so that it always lints, formats and typechecks the changed files.
+-   Fixed preexisting type errors.
