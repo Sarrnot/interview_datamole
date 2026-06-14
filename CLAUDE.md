@@ -22,9 +22,10 @@ Run per-package via `--filter` from the repo root.
 
 Verify changes (client only — server is plain JS with no tooling):
 
--   Lint: `pnpm --filter client lint` (ESLint, autofixes)
--   Typecheck: `pnpm --filter client exec tsc --noEmit`
--   Format: `pnpm --filter client format` (Prettier write)
+-   Lint: `pnpm --filter ./client lint` (ESLint, autofixes)
+-   Lint one file: `pnpm --filter ./client lint:file <path>`
+-   Typecheck: `pnpm --filter ./client typecheck` (alias for `tsc --noEmit`)
+-   Format: `pnpm --filter ./client format` (Prettier write)
 -   Tests: none — no test framework is set up.
 
 ## Conventions

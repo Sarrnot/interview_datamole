@@ -21,8 +21,7 @@ A single `useTodosState` hook holds the todos array and exposes `updateTodos / e
 
 ## Commands
 
--   `pnpm lint` — ESLint with `--fix`
--   `pnpm format` — Prettier write
+See [root CLAUDE.md](../CLAUDE.md#commands) — run from repo root via `pnpm --filter ./client <script>`. Scripts are defined in `package.json`.
 
 ## Conventions
 
