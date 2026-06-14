@@ -20,6 +20,6 @@ export const ToDo: Story = {
 export const Done: Story = {
     args: {
         ...ToDo.args,
-        checked: true,
+        isDone: true,
     },
 };
