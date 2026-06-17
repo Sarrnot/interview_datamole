@@ -4,7 +4,7 @@ React frontend. See [root CLAUDE.md](../CLAUDE.md) for cross-app concerns.
 
 ## Stack
 
-React 18 + TypeScript (strict) + Vite 5. styled-components 6, Radix UI, Storybook 8. Tests: Vitest 2 + React Testing Library (jsdom).
+React 18 + TypeScript (strict) + Vite 5. styled-components 6, Radix UI, Storybook 8. TanStack Query 5. Tests: Vitest 2 + React Testing Library (jsdom).
 
 ## Layout
 
