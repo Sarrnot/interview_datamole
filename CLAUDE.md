@@ -36,4 +36,5 @@ Lint, typecheck, format and test are also enforced automatically via hooks in `.
 -   **Tests**: when implementing or changing functionality, always consider adding tests for it.
 -   **Testable architecture**: favor structure that is easy to test — keep components presentational, push logic into hooks/pure functions, and isolate side effects behind a single boundary (e.g. data access `client/src/api`) so it can be mocked. Prefer pure functions with explicit inputs/outputs over hidden state; inject dependencies rather than reaching for globals.
 -   Assignment constraints (README): no Material UI, no Tailwind, do not modify the existing component library.
+-   **CLAUDE.md style**: keep them lean — capture architecture, where to find details, and key gotchas worth knowing before searching. Don't list every file/function/field; that detail belongs in the code and only adds churn. Push deep detail into a nested CLAUDE.md and link to it.
 -   **Keep CLAUDE.md files in sync**: when a change makes any of these docs stale (this file, `client/CLAUDE.md`, `server/CLAUDE.md`, `client/src/components/CLAUDE.md`), update the affected file in the same change.
