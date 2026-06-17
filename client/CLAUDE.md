@@ -4,25 +4,21 @@ React frontend. See [root CLAUDE.md](../CLAUDE.md) for cross-app concerns.
 
 ## Stack
 
-React 18 + TypeScript (strict) + Vite 5. styled-components 6, Radix UI, Storybook 8. TanStack Query 5. Tests: Vitest 2 + React Testing Library (jsdom).
+React 18 + TypeScript (strict) + Vite 5. styled-components 6, Radix UI, Storybook 8. TanStack Query 5, zod 3. Tests: Vitest 2 + React Testing Library (jsdom).
 
 ## Layout
 
--   `src/main.tsx` — mounts `<App />` to `#root`.
--   `src/App.tsx` — state owner; application code.
--   `src/api/todo.ts` — CRUD fetch + `Todo` type.
--   `src/stores/todosState.ts` — `useTodosState` hook.
+-   `src/main.tsx` — mounts `<App />` to `#root`, wrapped in `<QueryClientProvider>`.
+-   `src/App.tsx` — app root; holds the todos feature inline (no router yet).
+-   `src/api/` — data layer; single boundary for server I/O. See [api/CLAUDE.md](src/api/CLAUDE.md).
+-   `src/stores/` — reserved for client-only state (none today; server state lives in TanStack Query).
 -   `src/components/` — presentational. See [components/CLAUDE.md](src/components/CLAUDE.md).
 -   `src/types/` — utility types.
 -   `src/test/` — test harness
 
 ## Testing
 
-Vitest config lives in `vite.config.ts`. Tests are colocated as `*.test.ts(x)`. Component tests import `render` from `src/test/render`. Data access is mocked at the service boundary by mocking the `src/api` module (`vi.mock`).
-
-## State model
-
-A single `useTodosState` hook holds the todos array and exposes `updateTodos / editTodo / addTodo / removeTodo / toggleTodoDone`. Each mutation calls the API, then updates local state from the response (no separate cache). `App.tsx` sorts not-done first, then by `createdAt` descending.
+Vitest config in `vite.config.ts`. Tests colocated as `*.test.ts(x)`. Component tests import `render` from `src/test/render`.
 
 ## Commands
 
