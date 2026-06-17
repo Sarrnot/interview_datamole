@@ -1,21 +1,24 @@
+import { useMemo } from "react";
 import { Container } from "./components/Container";
 import { Layout } from "./components/Layout";
 import { List } from "./components/List";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { ThemeProvider } from "./components/providers/ThemeProvider";
-import { useTodosState } from "./stores/todosState";
 import { ListItem } from "./components/ListItem";
-import { useMemo } from "react";
-import { Todo } from "./api/todo";
+import { Todo, useCreateTodo, useDeleteTodo, usePatchTodo, useToggleTodo, useTodos } from "./api/todos";
 
 export const App = () => {
-    const { todos, removeTodo, toggleTodoDone, addTodo, editTodo } = useTodosState();
+    const { data: todos = [], isLoading, isError } = useTodos();
+    const createTodo = useCreateTodo();
+    const patchTodo = usePatchTodo();
+    const deleteTodo = useDeleteTodo();
+    const toggleTodo = useToggleTodo();
 
     /** Sorted todos: 1) not "done" first, 2) createdAt descending */
     const sortedTodos = useMemo(
         () =>
-            todos.sort((todo1, todo2) => {
+            [...todos].sort((todo1, todo2) => {
                 if (todo1.isDone !== todo2.isDone) {
                     return todo1.isDone ? 1 : -1;
                 }
@@ -30,14 +33,11 @@ export const App = () => {
     const doneCount = todos.reduce((count, todo) => (todo.isDone ? count + 1 : count), 0);
 
     const handleItemAdd = (label: string) => {
-        addTodo({
-            label,
-            isDone: false,
-        });
+        createTodo.mutate({ label, isDone: false });
     };
 
     const handleItemLabelEdit = (newLabel: string, todo: Todo) => {
-        editTodo({ id: todo.id, label: newLabel });
+        patchTodo.mutate({ id: todo.id, label: newLabel });
     };
 
     return (
@@ -46,13 +46,15 @@ export const App = () => {
                 <Layout>
                     <Header onItemAdd={handleItemAdd}>To Do app</Header>
                     <List>
+                        {isLoading && <span>Loading…</span>}
+                        {isError && <span>Failed to load todos.</span>}
                         {sortedTodos.map((todo) => (
                             <ListItem
                                 key={todo.id}
                                 label={todo.label}
                                 isDone={todo.isDone}
-                                onItemDelete={() => removeTodo(todo)}
-                                onItemDoneToggle={() => toggleTodoDone(todo)}
+                                onItemDelete={() => deleteTodo.mutate(todo)}
+                                onItemDoneToggle={() => toggleTodo.mutate(todo)}
                                 onItemLabelEdit={(label) => handleItemLabelEdit(label, todo)}
                             />
                         ))}
