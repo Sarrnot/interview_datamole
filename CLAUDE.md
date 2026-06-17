@@ -28,7 +28,7 @@ Verify changes (client only — server is plain JS with no tooling):
 -   Format: `pnpm --filter ./client format` (Prettier write)
 -   Tests: `pnpm --filter ./client test` (Vitest + React Testing Library, jsdom). Single file: `pnpm --filter ./client test <path>`.
 
-Lint, typecheck and format are also enforced automatically via hooks in `.claude/settings.json` (`.claude/hooks/*.sh`).
+Lint, typecheck, format and test are also enforced automatically via hooks in `.claude/settings.json` (`.claude/hooks/*.sh`).
 
 ## Conventions
 
