@@ -16,3 +16,4 @@ I chose to implement the drag-and-drop reordering.
 -   Set up environment for Claude, so that Claude can run lint/typecheck/format.
 -   Added guardrails for Claude in the form of hooks, so that it always lints, formats and typechecks the changed files.
 -   Fixed preexisting type errors.
+-   Added Vitest for unit/integration tests. Added to Claude hooks.
