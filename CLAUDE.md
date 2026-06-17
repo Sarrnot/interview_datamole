@@ -24,14 +24,16 @@ Verify changes (client only — server is plain JS with no tooling):
 
 -   Lint: `pnpm --filter ./client lint` (ESLint, autofixes)
 -   Lint one file: `pnpm --filter ./client lint:file <path>`
--   Typecheck: `pnpm --filter ./client typecheck` (alias for `tsc --noEmit`)
+-   Typecheck: `pnpm --filter ./client typecheck` (`tsc --noEmit`; covers app + test files)
 -   Format: `pnpm --filter ./client format` (Prettier write)
--   Tests: none — no test framework is set up.
+-   Tests: `pnpm --filter ./client test` (Vitest + React Testing Library, jsdom). Single file: `pnpm --filter ./client test <path>`.
 
 Lint, typecheck and format are also enforced automatically via hooks in `.claude/settings.json` (`.claude/hooks/*.sh`).
 
 ## Conventions
 
 -   Prettier (root `.prettierrc`): 4-space indent, 120 print width, es5 trailing commas.
+-   **Tests**: when implementing or changing functionality, always consider adding tests for it.
+-   **Testable architecture**: favor structure that is easy to test — keep components presentational, push logic into hooks/pure functions, and isolate side effects behind a single boundary (e.g. data access `client/src/api`) so it can be mocked. Prefer pure functions with explicit inputs/outputs over hidden state; inject dependencies rather than reaching for globals.
 -   Assignment constraints (README): no Material UI, no Tailwind, do not modify the existing component library.
 -   **Keep CLAUDE.md files in sync**: when a change makes any of these docs stale (this file, `client/CLAUDE.md`, `server/CLAUDE.md`, `client/src/components/CLAUDE.md`), update the affected file in the same change.

@@ -4,7 +4,7 @@ React frontend. See [root CLAUDE.md](../CLAUDE.md) for cross-app concerns.
 
 ## Stack
 
-React 18 + TypeScript (strict) + Vite 5. styled-components 6, Radix UI, Storybook 8.
+React 18 + TypeScript (strict) + Vite 5. styled-components 6, Radix UI, Storybook 8. Tests: Vitest 2 + React Testing Library (jsdom).
 
 ## Layout
 
@@ -14,6 +14,11 @@ React 18 + TypeScript (strict) + Vite 5. styled-components 6, Radix UI, Storyboo
 -   `src/stores/todosState.ts` — `useTodosState` hook.
 -   `src/components/` — presentational. See [components/CLAUDE.md](src/components/CLAUDE.md).
 -   `src/types/` — utility types.
+-   `src/test/` — test harness
+
+## Testing
+
+Vitest config lives in `vite.config.ts`. Tests are colocated as `*.test.ts(x)`. Component tests import `render` from `src/test/render`. Data access is mocked at the service boundary by mocking the `src/api` module (`vi.mock`).
 
 ## State model
 
