@@ -13,7 +13,8 @@
         "format:file": "prettier --write",
         "lint": "eslint \"src/**/*.ts*\" --fix",
         "lint:file": "eslint --fix",
-        "typecheck": "tsc --noEmit"
+        "typecheck": "tsc --noEmit",
+        "test": "vitest run"
     },
     "dependencies": {
         "@radix-ui/colors": "^3.0.0",
