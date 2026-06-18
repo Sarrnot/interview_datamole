@@ -1,43 +1,35 @@
 import { useMemo } from "react";
 import { Container } from "./components/Container";
 import { Layout } from "./components/Layout";
-import { List } from "./components/List";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { ThemeProvider } from "./components/providers/ThemeProvider";
-import { ListItem } from "./components/ListItem";
-import { Todo, useCreateTodo, useDeleteTodo, usePatchTodo, useToggleTodo, useTodos } from "./api/todos";
+import { CompletedSection, SortableTodoList, appendPosition, sortByPosition } from "./features/todos";
+import { Todo, useCreateTodo, useDeleteTodo, useMoveTodo, usePatchTodo, useToggleTodo, useTodos } from "./api/todos";
 
 export const App = () => {
     const { data: todos = [], isLoading, isError } = useTodos();
     const createTodo = useCreateTodo();
     const patchTodo = usePatchTodo();
+    const moveTodo = useMoveTodo();
     const deleteTodo = useDeleteTodo();
     const toggleTodo = useToggleTodo();
 
-    /** Sorted todos: 1) not "done" first, 2) createdAt descending */
-    const sortedTodos = useMemo(
-        () =>
-            [...todos].sort((todo1, todo2) => {
-                if (todo1.isDone !== todo2.isDone) {
-                    return todo1.isDone ? 1 : -1;
-                }
-
-                if (todo1.createdAt > todo2.createdAt) return -1;
-                if (todo1.createdAt < todo2.createdAt) return 1;
-                return 0;
-            }),
-        [todos]
-    );
-
-    const doneCount = todos.reduce((count, todo) => (todo.isDone ? count + 1 : count), 0);
+    /** Two sections, each ordered by the user-controlled `position` key. */
+    const activeTodos = useMemo(() => sortByPosition(todos.filter((todo) => !todo.isDone)), [todos]);
+    const doneTodos = useMemo(() => sortByPosition(todos.filter((todo) => todo.isDone)), [todos]);
 
     const handleItemAdd = (label: string) => {
-        createTodo.mutate({ label, isDone: false });
+        createTodo.mutate({ label, isDone: false, position: appendPosition(activeTodos) });
     };
 
     const handleItemLabelEdit = (newLabel: string, todo: Todo) => {
         patchTodo.mutate({ id: todo.id, label: newLabel });
+    };
+
+    const handleItemDoneToggle = (todo: Todo) => {
+        const destination = todo.isDone ? activeTodos : doneTodos;
+        toggleTodo.mutate({ todo, destinationPosition: appendPosition(destination) });
     };
 
     return (
@@ -45,21 +37,27 @@ export const App = () => {
             <Container>
                 <Layout>
                     <Header onItemAdd={handleItemAdd}>To Do app</Header>
-                    <List>
-                        {isLoading && <span>Loading…</span>}
-                        {isError && <span>Failed to load todos.</span>}
-                        {sortedTodos.map((todo) => (
-                            <ListItem
-                                key={todo.id}
-                                label={todo.label}
-                                isDone={todo.isDone}
-                                onItemDelete={() => deleteTodo.mutate(todo)}
-                                onItemDoneToggle={() => toggleTodo.mutate(todo)}
-                                onItemLabelEdit={(label) => handleItemLabelEdit(label, todo)}
+                    {isLoading && <span>Loading…</span>}
+                    {isError && <span>Failed to load todos.</span>}
+                    <SortableTodoList
+                        todos={activeTodos}
+                        onMove={(move) => moveTodo.mutate(move)}
+                        onItemDelete={(todo) => deleteTodo.mutate(todo)}
+                        onItemDoneToggle={handleItemDoneToggle}
+                        onItemLabelEdit={handleItemLabelEdit}
+                    />
+                    {doneTodos.length > 0 && (
+                        <CompletedSection>
+                            <SortableTodoList
+                                todos={doneTodos}
+                                onMove={(move) => moveTodo.mutate(move)}
+                                onItemDelete={(todo) => deleteTodo.mutate(todo)}
+                                onItemDoneToggle={handleItemDoneToggle}
+                                onItemLabelEdit={handleItemLabelEdit}
                             />
-                        ))}
-                    </List>
-                    <Footer doneItems={doneCount} todoItems={todos.length - doneCount} />
+                        </CompletedSection>
+                    )}
+                    <Footer doneItems={doneTodos.length} todoItems={activeTodos.length} />
                 </Layout>
             </Container>
         </ThemeProvider>

@@ -1,2 +1,10 @@
-export { useTodos, useCreateTodo, useUpdateTodo, usePatchTodo, useDeleteTodo, useToggleTodo } from "./useTodo";
-export type { Todo } from "./todoSchema";
+export {
+    useTodos,
+    useCreateTodo,
+    useUpdateTodo,
+    usePatchTodo,
+    useMoveTodo,
+    useDeleteTodo,
+    useToggleTodo,
+} from "./useTodo";
+export type { Todo, TodoMove } from "./todoSchema";

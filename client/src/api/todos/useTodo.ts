@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient, type QueryClient } from "@tansta
 import { deleteTodo, getTodos, patchTodo, postTodo, putTodo } from "./todo";
 import { todoKeys } from "./todoKeys";
 import { addTodo, buildOptimisticTodo, mergeTodo, removeTodo, replaceTodo, toggledPatch } from "./todoListUpdates";
-import { TodoPatch, TodoCreate, Todo } from "./todoSchema";
+import { TodoPatch, TodoCreate, Todo, TodoMove } from "./todoSchema";
 
 export const useTodos = () => useQuery({ queryKey: todoKeys.list(), queryFn: getTodos });
 
@@ -60,6 +60,15 @@ export const usePatchTodo = () => {
     });
 };
 
+/**
+ * Reorder helper: a move is just a narrowed patch (only `{ id, position }`), so it reuses
+ * `usePatchTodo`'s optimistic merge/rollback/reconcile rather than duplicating the wiring.
+ */
+export const useMoveTodo = () => {
+    const patch = usePatchTodo();
+    return { ...patch, mutate: (move: TodoMove) => patch.mutate(move) };
+};
+
 export const useDeleteTodo = () => {
     const queryClient = useQueryClient();
     return useMutation({
@@ -70,11 +79,19 @@ export const useDeleteTodo = () => {
     });
 };
 
+/**
+ * Toggle done state. Caller passes `destinationPosition` — a fresh key for the section the item
+ * lands in. Reusing the todo's own (source) key could collide there, since the two sections are
+ * sorted independently but share a keyspace.
+ */
+type ToggleVars = { todo: Pick<Todo, "id" | "isDone">; destinationPosition: string };
+
 export const useToggleTodo = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (todo: Todo) => patchTodo(toggledPatch(todo)),
-        onMutate: (todo) => optimisticUpdate(queryClient, (todos) => mergeTodo(todos, toggledPatch(todo))),
+        mutationFn: ({ todo, destinationPosition }: ToggleVars) => patchTodo(toggledPatch(todo, destinationPosition)),
+        onMutate: ({ todo, destinationPosition }) =>
+            optimisticUpdate(queryClient, (todos) => mergeTodo(todos, toggledPatch(todo, destinationPosition))),
         onError: rollbackOnError(queryClient),
         onSettled: reconcileOnSettled(queryClient),
     });

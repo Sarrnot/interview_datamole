@@ -3,29 +3,30 @@ import { describe, expect, it } from "vitest";
 import { addTodo, buildOptimisticTodo, mergeTodo, removeTodo, replaceTodo, toggledPatch } from "./todoListUpdates";
 import { Todo } from "./todoSchema";
 
-const a: Todo = { id: 1, label: "a", isDone: false, createdAt: 100 };
-const b: Todo = { id: 2, label: "b", isDone: true, createdAt: 200 };
+const a: Todo = { id: 1, label: "a", isDone: false, createdAt: 100, position: "a0" };
+const b: Todo = { id: 2, label: "b", isDone: true, createdAt: 200, position: "a1" };
 const list: Todo[] = [a, b];
 
 describe("buildOptimisticTodo", () => {
     it("uses the negated now as a temp id and stamps createdAt", () => {
-        expect(buildOptimisticTodo({ label: "new", isDone: false }, 1234)).toEqual({
+        expect(buildOptimisticTodo({ label: "new", isDone: false, position: "a5" }, 1234)).toEqual({
             id: -1234,
             createdAt: 1234,
             label: "new",
             isDone: false,
+            position: "a5",
         });
     });
 });
 
 describe("addTodo", () => {
     it("appends the todo", () => {
-        const c: Todo = { id: 3, label: "c", isDone: false, createdAt: 300 };
+        const c: Todo = { id: 3, label: "c", isDone: false, createdAt: 300, position: "a2" };
         expect(addTodo(list, c)).toEqual([a, b, c]);
     });
 
     it("does not mutate the input", () => {
-        const c: Todo = { id: 3, label: "c", isDone: false, createdAt: 300 };
+        const c: Todo = { id: 3, label: "c", isDone: false, createdAt: 300, position: "a2" };
         addTodo(list, c);
         expect(list).toEqual([a, b]);
     });
@@ -38,7 +39,7 @@ describe("replaceTodo", () => {
     });
 
     it("leaves the list unchanged when no id matches", () => {
-        const other: Todo = { id: 99, label: "x", isDone: false, createdAt: 1 };
+        const other: Todo = { id: 99, label: "x", isDone: false, createdAt: 1, position: "z9" };
         expect(replaceTodo(list, other)).toEqual([a, b]);
     });
 
@@ -79,11 +80,15 @@ describe("removeTodo", () => {
 });
 
 describe("toggledPatch", () => {
-    it("builds a patch flipping isDone false -> true", () => {
-        expect(toggledPatch(a)).toEqual({ id: 1, isDone: true });
+    it("flips isDone false -> true", () => {
+        expect(toggledPatch(a, "z0")).toMatchObject({ id: 1, isDone: true });
     });
 
-    it("builds a patch flipping isDone true -> false", () => {
-        expect(toggledPatch(b)).toEqual({ id: 2, isDone: false });
+    it("flips isDone true -> false", () => {
+        expect(toggledPatch(b, "z1")).toMatchObject({ id: 2, isDone: false });
+    });
+
+    it("carries the given position into the patch", () => {
+        expect(toggledPatch(a, "z0").position).toBe("z0");
     });
 });
