@@ -1,6 +1,6 @@
 # Datamole's React / TypeScript Assignment
 
-&#10071; <span style="color:red; font-weight:bold;">My personal notes inside WorkLog.md.</span> Original README continues below.
+&#10071; <span style="color:red; font-weight:bold;">My personal notes inside WorkLog.md and WorkLog_vol2.md.</span> Original README continues below.
 
 Please, read following instructions and let us know if anything is not clear.
 
