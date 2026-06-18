@@ -12,6 +12,7 @@ React 18 + TypeScript (strict) + Vite 5. styled-components 6, Radix UI, Storyboo
 -   `src/App.tsx` — app root; holds the todos feature inline (no router yet).
 -   `src/api/` — data layer; single boundary for server I/O. See [api/CLAUDE.md](src/api/CLAUDE.md).
 -   `src/stores/` — reserved for client-only state (none today; server state lives in TanStack Query).
+-   `src/features/` — feature composition that wires the data layer to components. See [features/CLAUDE.md](src/features/CLAUDE.md).
 -   `src/components/` — presentational. See [components/CLAUDE.md](src/components/CLAUDE.md).
 -   `src/types/` — utility types.
 -   `src/test/` — test harness
