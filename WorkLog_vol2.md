@@ -18,3 +18,4 @@ I chose to implement the drag-and-drop reordering.
 -   Fixed preexisting type errors.
 -   Added Vitest for unit/integration tests. Added to Claude hooks.
 -   Refactored the API layer to use Tanstack Query. It will allow optimistic updates for the drag-and-drop functionality. Additionally it will be easier for Claude to reason about, it is the industry standard.
+-   Implemented the drag-and-drop reordering functionality.
